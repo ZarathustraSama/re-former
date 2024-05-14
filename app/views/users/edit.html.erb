@@ -1,0 +1,45 @@
+<!--
+<form accept-charset="UTF-8" action="/users" method="post">
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+    <label for="email">Email: </label>
+    <input type="email" id="email" name="user[email]">
+    <label for="username">Username: </label>
+    <input type="text" id="username" name="user[username]">
+    <label for="password">Password: </label>
+    <input type="password" id="password" name="user[password]">
+    <input type="submit" value="Submit">
+</form>
+-->
+
+<!--
+<%=form_tag("/users", method: "post") do %>
+  <%= label_tag(:email, "Email:") %>
+  <%= email_field_tag(:email) %>
+  <%= label_tag(:username, "Username: ") %>
+  <%= text_field_tag(:username) %>
+  <%= label_tag(:password, "Password: ") %>
+  <%= password_field_tag(:password) %>
+  <%= submit_tag("Submit") %>
+<% end %>
+-->
+
+<%= form_with model: @user do |form| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+      <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= form.label :email, "Email:" %>
+  <%= form.email_field :email, placeholder: @user.email %>
+  <%= form.label :username, "Your user name here" %>
+  <%= form.text_field :username, placeholder: @user.username %>
+  <%= form.label :password, "Your secret here" %>
+  <%= form.password_field :password, placeholder: "Password" %>
+  <%= form.submit "Edit" %>
+<% end %>
